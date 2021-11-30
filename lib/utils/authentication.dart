@@ -47,6 +47,23 @@ class Authentication {
     return user;
   }
 
+  static Future<User?> signInAnonymous({
+    required BuildContext context,
+  }) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user;
+
+    try {
+      UserCredential userCredential = await auth.signInAnonymously();
+      user = userCredential.user;
+      print(user);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+
+    return user;
+  }
+
   static Future<User?> registerUsingEmailPassword({
     required String name,
     required String email,
